@@ -1,9 +1,11 @@
 ﻿package  {
 	
-	import com.abadalyan.fireworks.model.factory.IParticleFactory;
-	import com.abadalyan.fireworks.model.factory.ParticleFactory;
-	import com.abadalyan.fireworks.model.particle.ParticleType;
+	import com.abadalyan.fireworks.controller.factory.IParticleFactory;
+	import com.abadalyan.fireworks.controller.factory.ParticleFactory;
+	import com.abadalyan.fireworks.model.blast.BlastType;
+	import com.abadalyan.fireworks.view.blast.BaseBlast;
 	import com.abadalyan.fireworks.view.particle.BaseParticle;
+	import com.abadalyan.fireworks.FireworksFacade;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	
@@ -19,11 +21,11 @@
 		
 		private function onClick(e:MouseEvent):void {
 			particleFactory = new ParticleFactory();
-   			var particle:BaseParticle = particleFactory.getParticle(ParticleType.SIMPLE, 0xff0000, Math.PI / 4, 20, 10000);
-			particle.x = e.localX;
-			particle.y = e.localY;
-			addChild(particle);
-			particle.simulate();
+   			var blast:BaseBlast = FireworksFacade.blastFactory.getBlast(BlastType.SIMPLE, 20, 300);
+			blast.x = e.localX;
+			blast.y = e.localY;
+			addChild(blast);
+			blast.simulate();
 			
 		}
 	}
