@@ -13,7 +13,7 @@
 	public class Main extends MovieClip {
 		
 		
-		var particleFactory:IParticleFactory;
+		public var particleFactory:IParticleFactory;
 		
 		public function Main() {
 			stage.addEventListener(MouseEvent.CLICK, onClick);
@@ -21,7 +21,7 @@
 		
 		private function onClick(e:MouseEvent):void {
 			particleFactory = new ParticleFactory();
-   			var blast:BaseBlast = FireworksFacade.blastFactory.getBlast(BlastType.SIMPLE, 20, 200);
+   			var blast:BaseBlast = FireworksFacade.blastFactory.getBlast(BlastType.SIMPLE, 20, 100);
 			blast.x = e.localX;
 			blast.y = e.localY;
 			addChild(blast);
