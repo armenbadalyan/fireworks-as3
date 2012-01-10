@@ -64,7 +64,7 @@ package com.abadalyan.fireworks.view.particle
 				// if not
 				frameCount++;
 				
-				t = frameCount*0.1;
+				t = frameCount*0.15;
 				
 				this.x = startX + data.speed * t * Math.cos(data.direction);
 				this.y = startY - data.speed * t * Math.sin(data.direction) + 0.5 * G * t * t;			

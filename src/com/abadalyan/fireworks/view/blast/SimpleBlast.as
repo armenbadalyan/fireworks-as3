@@ -10,7 +10,7 @@ package com.abadalyan.fireworks.view.blast
 	 */
 	public class SimpleBlast extends BaseBlast 
 	{
-		private const BASE_PARTICLE_DURATION:int = 6000;
+		private const BASE_PARTICLE_DURATION:int = 3000;
 		
 		private var particles:Vector.<BaseParticle>;
 				
@@ -29,7 +29,7 @@ package com.abadalyan.fireworks.view.blast
 		private function createParticles():void {
 			var particle:BaseParticle;
 			for (var i:int = 0; i < data.particleCount; i++ ) {
-				particle = particleFactory.getParticle(ParticleType.VARIABLE_GLOW, 0xff0000, i * (2*Math.PI / data.particleCount), getRandomSpeed(), getRandomLife());
+				particle = particleFactory.getParticle(ParticleType.VARIABLE_GLOW, 0xffCC00, i * (2*Math.PI / data.particleCount), getRandomSpeed(), getRandomLife());
 				particles.push(particle);
 			}
 		}
