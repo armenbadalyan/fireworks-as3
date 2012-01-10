@@ -11,13 +11,18 @@ package com.abadalyan.fireworks.view.particle
 	{
 		
 		private const G:int  = 10;
-		
+		private const TIME_STEP:int = 20; //ms
+				
+		private var accumulator:uint = 0;		
 		private var duration:uint = 0;
-		private var lastTime:uint;
+		private var frameDuration:uint = 0;
+		private var lastTime:uint;				
+		private var prevFrameCount:uint = 0;
 		private var frameCount:uint = 0;
 		private var t:Number;
 		private var startX:Number;
 		private var startY:Number;
+		private var a:Number;
 		
 		public function VariableGlowParticle(data:ParticleData) 
 		{
@@ -58,13 +63,12 @@ package com.abadalyan.fireworks.view.particle
 		private function onEnterFrame(e:Event):void {
 			var now:uint = getTimer()
 			duration += now - lastTime;
-			
+			frameDuration = now - lastTime;
+						
 			// check if particale has expired			
 			if (duration <= data.duration) {
 				// if not
-				frameCount++;
-				
-				t = frameCount*0.15;
+				updateTimeStep();			
 				
 				this.x = startX + data.speed * t * Math.cos(data.direction);
 				this.y = startY - data.speed * t * Math.sin(data.direction) + 0.5 * G * t * t;			
@@ -77,6 +81,21 @@ package com.abadalyan.fireworks.view.particle
 				removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 				clear();				
 			}
+		}
+		
+		private function updateTimeStep():void {
+			accumulator += frameDuration;
+			
+			while (accumulator >= TIME_STEP) {				
+				prevFrameCount = frameCount;
+				frameCount++;				
+				accumulator -= TIME_STEP;
+			}
+			
+			a = accumulator / TIME_STEP;
+			
+			t = 0.08*frameCount * a + 0.08*prevFrameCount * (1 - a);
+			//t = frameCount*0.05;
 		}
 		
 	}
