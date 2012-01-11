@@ -21,7 +21,7 @@
 		
 		private function onClick(e:MouseEvent):void {
 			particleFactory = new ParticleFactory();
-   			var blast:BaseBlast = FireworksFacade.blastFactory.getBlast(BlastType.SIMPLE, 20, 100);
+   			var blast:BaseBlast = FireworksFacade.blastFactory.getBlast(BlastType.SIMPLE, 5, 100);
 			blast.x = e.localX;
 			blast.y = e.localY;
 			addChild(blast);

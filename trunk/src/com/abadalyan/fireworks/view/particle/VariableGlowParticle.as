@@ -70,8 +70,11 @@ package com.abadalyan.fireworks.view.particle
 				// if not
 				updateTimeStep();			
 				
-				this.x = startX + data.speed * t * Math.cos(data.direction);
-				this.y = startY - data.speed * t * Math.sin(data.direction) + 0.5 * G * t * t;			
+				/*this.x = startX + data.speed * t * Math.cos(data.direction);
+				this.y = startY - data.speed * t * Math.sin(data.direction) + 0.5 * G * t * t;			*/
+				
+				this.x += data.speed * Math.cos(data.direction);
+				this.y += -data.speed * Math.sin(data.direction) + G * t;
 				
 				lastTime = now;
 				
@@ -94,7 +97,7 @@ package com.abadalyan.fireworks.view.particle
 			
 			a = accumulator / TIME_STEP;
 			
-			t = 0.08*frameCount * a + 0.08*prevFrameCount * (1 - a);
+			t = 0.01*frameCount * a + 0.01*prevFrameCount * (1 - a);
 			//t = frameCount*0.05;
 		}
 		
