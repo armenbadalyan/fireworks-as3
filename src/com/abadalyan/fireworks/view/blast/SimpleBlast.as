@@ -42,7 +42,7 @@ package com.abadalyan.fireworks.view.blast
 		}
 		
 		private function getRandomSpeed():Number {
-			var forceOffset:Number = data.force * 0.5;
+			var forceOffset:Number = data.force * 0.3;
 			return data.force + Math.random() * forceOffset * 2 - forceOffset;
 		}
 		
