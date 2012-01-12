@@ -11,18 +11,21 @@ package com.abadalyan.fireworks.view.particle
 	{
 		
 		private const G:int  = 10;
-		private const TIME_STEP:int = 20; //ms
-				
-		private var accumulator:uint = 0;		
+		private const TIME_STEP:int = 30; //ms
+			
 		private var duration:uint = 0;
 		private var frameDuration:uint = 0;
 		private var lastTime:uint;				
 		private var prevFrameCount:uint = 0;
 		private var frameCount:uint = 0;
-		private var t:Number;
-		private var startX:Number;
-		private var startY:Number;
+		private var t:Number;	
 		private var a:Number;
+		
+		private var vx:Number;
+		private var vy:Number;	
+		
+		private var gravity:int = 100;
+		
 		
 		public function VariableGlowParticle(data:ParticleData) 
 		{
@@ -32,8 +35,8 @@ package com.abadalyan.fireworks.view.particle
 		override public function simulate():void 
 		{
 			draw();
-			startX = x;
-			startY = y;
+			vx = data.speed * Math.cos(data.direction);
+			vy = data.speed * Math.sin(data.direction);
 			lastTime = getTimer();
 			frameCount = 0;
 			addEventListener(Event.ENTER_FRAME, onEnterFrame);			
@@ -67,15 +70,20 @@ package com.abadalyan.fireworks.view.particle
 						
 			// check if particale has expired			
 			if (duration <= data.duration) {
-				// if not
-				updateTimeStep();			
+				// if not								
+							
+				var timeDeltaInSeconds:Number = frameDuration / 1000;
 				
-				/*this.x = startX + data.speed * t * Math.cos(data.direction);
-				this.y = startY - data.speed * t * Math.sin(data.direction) + 0.5 * G * t * t;			*/
+				vy += gravity * timeDeltaInSeconds;
 				
-				this.x += data.speed * Math.cos(data.direction);
-				this.y += -data.speed * Math.sin(data.direction) + G * t;
+				//trace(data.friction);
 				
+				vx *= Math.pow(1-data.friction, timeDeltaInSeconds);
+				vy *= Math.pow(1-data.friction, timeDeltaInSeconds);
+													
+				x += vx*timeDeltaInSeconds;
+				y += vy*timeDeltaInSeconds;				
+								
 				lastTime = now;
 				
 				draw();
@@ -86,8 +94,8 @@ package com.abadalyan.fireworks.view.particle
 			}
 		}
 		
-		private function updateTimeStep():void {
-			accumulator += frameDuration;
+		/*private function updateTimeStep():Boolean {
+			accumulator += frameDuration;			
 			
 			while (accumulator >= TIME_STEP) {				
 				prevFrameCount = frameCount;
@@ -97,9 +105,14 @@ package com.abadalyan.fireworks.view.particle
 			
 			a = accumulator / TIME_STEP;
 			
-			t = 0.01*frameCount * a + 0.01*prevFrameCount * (1 - a);
-			//t = frameCount*0.05;
-		}
+			if (frameCount != prevFrameCount) {
+				t = 0.01 * frameCount * a + 0.01 * prevFrameCount * (1 - a);
+				return true;
+			}			
+			else {
+				return false;
+			}			
+		}*/
 		
 	}
 
