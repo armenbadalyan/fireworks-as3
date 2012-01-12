@@ -11,14 +11,15 @@ package com.abadalyan.fireworks.model.particle
 		public var direction:Number;
 		public var speed:Number;
 		public var duration:uint;
+		public var friction:Number;
 		
-		public function ParticleData(color:uint, direction:Number, speed:Number, duration:uint) 
+		public function ParticleData(color:uint, direction:Number, speed:Number, duration:uint, friction:Number) 
 		{
 			this.color = color;
 			this.direction = direction;
 			this.speed = speed;
 			this.duration = duration;
-			
+			this.friction = friction;
 		}
 		
 	}

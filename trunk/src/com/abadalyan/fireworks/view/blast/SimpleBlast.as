@@ -10,7 +10,8 @@ package com.abadalyan.fireworks.view.blast
 	 */
 	public class SimpleBlast extends BaseBlast 
 	{
-		private const BASE_PARTICLE_DURATION:int = 3000;
+		private const BASE_PARTICLE_DURATION:int = 5000;
+		private const BASE_FRICTION:Number = 0.98;
 		
 		private var particles:Vector.<BaseParticle>;
 				
@@ -29,9 +30,18 @@ package com.abadalyan.fireworks.view.blast
 		private function createParticles():void {
 			var particle:BaseParticle;
 			for (var i:int = 0; i < data.particleCount; i++ ) {
-				particle = particleFactory.getParticle(ParticleType.VARIABLE_GLOW, 0xffCC00, i * (2*Math.PI / data.particleCount), getRandomSpeed(), getRandomLife());
+				
+				if (i % 10 != 0) {
+					particle = particleFactory.getParticle(ParticleType.VARIABLE_GLOW, 0xffCC00, i * (2*Math.PI / data.particleCount), getRandomSpeed(0.1), getRandomLife(0.4), getRandomFriction(0.01));
+				}
+				else {
+					particle = particleFactory.getParticle(ParticleType.VARIABLE_GLOW, 0xffCC00, i * (2*Math.PI / data.particleCount), getRandomSpeed(0.8), getRandomLife(0.4), getRandomFriction(0.01));
+				}				
+				
 				particles.push(particle);
+				
 			}
+			
 		}
 		
 		private function simulateParticles():void {
@@ -41,14 +51,18 @@ package com.abadalyan.fireworks.view.blast
 			}
 		}
 		
-		private function getRandomSpeed():Number {
-			var forceOffset:Number = data.force * 0.3;
+		private function getRandomSpeed(q:Number):Number {
+			var forceOffset:Number = data.force * q;
 			return data.force + Math.random() * forceOffset * 2 - forceOffset;
 		}
 		
-		private function getRandomLife():Number {
-			var durOffset:Number = BASE_PARTICLE_DURATION * 0.3;
+		private function getRandomLife(q:Number):Number {
+			var durOffset:Number = BASE_PARTICLE_DURATION * q;
 			return BASE_PARTICLE_DURATION + Math.ceil(Math.random() * durOffset * 2) - durOffset;
+		}
+		private function getRandomFriction(q:Number):Number {
+			var fricOffset:Number = BASE_FRICTION * q;
+			return BASE_FRICTION + Math.random() * fricOffset * 2 - fricOffset;
 		}
 		
 	}

@@ -17,9 +17,9 @@
 			
 		}		
 		
-		public function getParticle(type:String, color:uint, direction:Number, speed:Number, duration:uint):BaseParticle 
+		public function getParticle(type:String, color:uint, direction:Number, speed:Number, duration:uint, friction:Number):BaseParticle 
 		{
-			var data:ParticleData = new ParticleData(color, direction, speed, duration);
+			var data:ParticleData = new ParticleData(color, direction, speed, duration, friction);
 			var particle:BaseParticle;
 			
 			switch(type) {
