@@ -1,6 +1,7 @@
 package com.abadalyan.fireworks.api.motion 
 {
 	import com.abadalyan.fireworks.api.particle.BaseParticle;
+	import com.abadalyan.fireworks.api.particle.ParticleProperties;
 	import flash.events.Event;
 	import flash.utils.getTimer;
 	
@@ -26,7 +27,8 @@ package com.abadalyan.fireworks.api.motion
 			
 		}		
 		
-		final public function go():void {
+		final public function animate():void {
+			lastTime = getTimer();
 			particle.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 		
@@ -36,15 +38,20 @@ package com.abadalyan.fireworks.api.motion
 			currentDuration += now - lastTime;
 			frameDuration = now - lastTime;
 			
-			if (duration <= data.duration) {
-				move(particle, currentDuration, frameDuration/1000);
+			if (currentDuration <= particle.data.properties[ParticleProperties.DURATION]) {
+				move(particle, currentDuration, frameDuration / 1000);
+				
+				lastTime = now;
 			}
 			else {
-				removeEventListener(Event.ENTER_FRAME, onEnterFrame);							
+				particle.removeEventListener(Event.ENTER_FRAME, onEnterFrame);	
+				
+				// move it to factory later
+				particle.visible = false;
 			}
 		}
 		
-		protected function move(particle:BaseMotion, currentDuration:uint, timeDeltaInSeconds:Number):void {
+		protected function move(particle:BaseParticle, currentDuration:uint, timeDeltaInSeconds:Number):void {
 			// override in child classes
 		}
 		

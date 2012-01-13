@@ -12,28 +12,36 @@
 	 */
 	public class ParticleFactory implements IParticleFactory 
 	{			
+		private var _particleCount:uint = 0;
+		
 		public function ParticleFactory() 
 		{
 			
 		}		
 		
-		public function getParticle(type:String, color:uint, direction:Number, speed:Number, duration:uint, friction:Number):BaseParticle 
+		public function getParticle(type:String):BaseParticle 
 		{
-			var data:ParticleData = new ParticleData(color, direction, speed, duration, friction);
 			var particle:BaseParticle;
+			_particleCount++;
 			
 			switch(type) {
 				case ParticleType.SIMPLE:
-					particle = new SimpleParticle(data);
+					particle = new SimpleParticle();
 					break;
 				case ParticleType.VARIABLE_GLOW:
-					particle = new VariableGlowParticle(data);
+					particle = new VariableGlowParticle();
 					break;
 				default:
+					_particleCount--; 					
 					throw new IllegalOperationError("Trying to instantiate inexistent particle type: "+type);
 			}
 			
 			return particle;
+		}
+		
+		public function get particleCount():uint 
+		{
+			return _particleCount;
 		}
 		
 	}

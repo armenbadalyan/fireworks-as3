@@ -8,7 +8,8 @@ package com.abadalyan.fireworks.api.factory
 	 */
 	public interface IParticleFactory 
 	{
-		function getParticle(type:String, color:uint, direction:Number, speed:Number, duration:uint, friction:Number):BaseParticle;
+		function getParticle(type:String):BaseParticle;
+		function get particleCount():uint;
 	}
 	
 }
