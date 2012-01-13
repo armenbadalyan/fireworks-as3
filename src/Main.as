@@ -1,11 +1,11 @@
 ﻿package  {
 	
-	import com.abadalyan.fireworks.controller.factory.IParticleFactory;
-	import com.abadalyan.fireworks.controller.factory.ParticleFactory;
-	import com.abadalyan.fireworks.model.blast.BlastType;
-	import com.abadalyan.fireworks.view.blast.BaseBlast;
-	import com.abadalyan.fireworks.view.particle.BaseParticle;
-	import com.abadalyan.fireworks.FireworksFacade;
+	import com.abadalyan.fireworks.api.factory.IParticleFactory;
+	import com.abadalyan.fireworks.api.factory.ParticleFactory;
+	import com.abadalyan.fireworks.api.blast.BlastType;
+	import com.abadalyan.fireworks.api.blast.BaseBlast;
+	import com.abadalyan.fireworks.api.particle.BaseParticle;
+	import com.abadalyan.fireworks.api.FireworksFacade;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	

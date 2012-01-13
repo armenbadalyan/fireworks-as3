@@ -1,9 +1,9 @@
-package com.abadalyan.fireworks 
+package com.abadalyan.fireworks.api 
 {
-	import com.abadalyan.fireworks.controller.factory.BlastFactory;
-	import com.abadalyan.fireworks.controller.factory.IBlastFactory;
-	import com.abadalyan.fireworks.controller.factory.ParticleFactory;
-	import com.abadalyan.fireworks.controller.factory.IParticleFactory;
+	import com.abadalyan.fireworks.api.factory.BlastFactory;
+	import com.abadalyan.fireworks.api.factory.IBlastFactory;
+	import com.abadalyan.fireworks.api.factory.ParticleFactory;
+	import com.abadalyan.fireworks.api.factory.IParticleFactory;
 	/**
 	 * ...
 	 * @author abadalyan

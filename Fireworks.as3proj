@@ -2,16 +2,16 @@
 <project version="2">
   <!-- Output SWF options -->
   <output>
-    <movie outputType="Application" />
+    <movie outputType="OtherIDE" />
     <movie input="" />
-    <movie path="bin\fireworks.swf" />
-    <movie fps="60" />
+    <movie path="" />
+    <movie fps="30" />
     <movie width="800" />
     <movie height="600" />
     <movie version="10" />
     <movie minorVersion="2" />
     <movie platform="Flash Player" />
-    <movie background="#000000" />
+    <movie background="#FFFFFF" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
@@ -83,8 +83,8 @@
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="False" />
-    <option testMovie="Custom" />
-    <option testMovieCommand="Firefox;bin/index.html" />
+    <option testMovie="OpenDocument" />
+    <option testMovieCommand="bin/Main.html" />
   </options>
   <!-- Plugin storage -->
   <storage />
