@@ -2,8 +2,11 @@ package com.abadalyan.fireworks.api.blast
 {
 	import com.abadalyan.fireworks.api.blast.BlastData;
 	import com.abadalyan.fireworks.api.factory.IParticleFactory;
+	import com.abadalyan.fireworks.api.motion.FireworkMotion;
 	import com.abadalyan.fireworks.api.particle.BaseParticle;
 	import com.abadalyan.fireworks.api.particle.ParticleType;
+	import com.abadalyan.fireworks.api.particle.ParticleProperties;
+	import flash.geom.Vector3D;
 	/**
 	 * ...
 	 * @author abadalyan
@@ -29,9 +32,23 @@ package com.abadalyan.fireworks.api.blast
 		
 		private function createParticles():void {
 			var particle:BaseParticle;
+			var direction:Number; // in rads
+			var speed:Number;
 			for (var i:int = 0; i < data.particleCount; i++ ) {
 				
-				particle = particleFactory.getParticle(ParticleType.VARIABLE_GLOW, 0xffCC00, i * (2*Math.PI / data.particleCount), getRandomSpeed(0.1), getRandomLife(0.4), getRandomFriction(0.01));
+				particle = particleFactory.getParticle(ParticleType.SIMPLE);// 0xffCC00, i * (2 * Math.PI / data.particleCount), getRandomSpeed(0.1), getRandomLife(0.4), getRandomFriction(0.01));
+				particle.motion = new FireworkMotion(particle);
+				
+				direction = i * (2 * Math.PI / data.particleCount);
+				speed = getRandomSpeed(0.1);				
+				
+				// fire particles in different directions
+				particle.data.properties[ParticleProperties.SPEED] = new Vector3D(speed * Math.cos(direction), speed * Math.sin(direction));				
+				particle.data.properties[ParticleProperties.DURATION] = getRandomLife(0.4);
+				particle.data.properties[ParticleProperties.FRICTION] = getRandomFriction(0.01);
+				particle.data.properties[ParticleProperties.SIZE] = 2;
+				particle.data.properties[ParticleProperties.COLOR] = 0xFFCC00;
+				
 								
 				particles.push(particle);
 				
@@ -43,7 +60,7 @@ package com.abadalyan.fireworks.api.blast
 			for each(var p:BaseParticle in particles) {
 				addChild(p);
 				p.simulate();
-			}
+			}			
 		}
 		
 		private function getRandomSpeed(q:Number):Number {

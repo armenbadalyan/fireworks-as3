@@ -6,21 +6,12 @@ package com.abadalyan.fireworks.api.particle
 	 */
 	public class ParticleData 
 	{
+		public var properties:Object;
 		
-		public var color:uint;
-		public var direction:Number;
-		public var speed:Number;
-		public var duration:uint;
-		public var friction:Number;
-		
-		public function ParticleData(color:uint, direction:Number, speed:Number, duration:uint, friction:Number) 
+		public function ParticleData() 
 		{
-			this.color = color;
-			this.direction = direction;
-			this.speed = speed;
-			this.duration = duration;
-			this.friction = friction;
-		}
+			properties = new Object();
+		}		
 		
 	}
 
