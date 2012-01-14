@@ -2,7 +2,12 @@ package com.abadalyan.fireworks.api.blast
 {
 	import com.abadalyan.fireworks.api.blast.BlastData;
 	import com.abadalyan.fireworks.api.factory.IParticleFactory;
+	import com.abadalyan.fireworks.api.motion.AlpaAnimator;
+	import com.abadalyan.fireworks.api.motion.ComplexAnimator;
 	import com.abadalyan.fireworks.api.motion.FireworkMotion;
+	import com.abadalyan.fireworks.api.motion.FrictionAnimator;
+	import com.abadalyan.fireworks.api.motion.GravityAnimator;
+	import com.abadalyan.fireworks.api.motion.IAnimator;	
 	import com.abadalyan.fireworks.api.particle.BaseParticle;
 	import com.abadalyan.fireworks.api.particle.ParticleType;
 	import com.abadalyan.fireworks.api.particle.ParticleProperties;
@@ -13,7 +18,7 @@ package com.abadalyan.fireworks.api.blast
 	 */
 	public class SimpleBlast extends BaseBlast 
 	{
-		private const BASE_PARTICLE_DURATION:int = 5000;
+		private const BASE_PARTICLE_DURATION:int = 2500;
 		private const BASE_FRICTION:Number = 0.98;
 		
 		private var particles:Vector.<BaseParticle>;
@@ -36,16 +41,22 @@ package com.abadalyan.fireworks.api.blast
 			var speed:Number;
 			for (var i:int = 0; i < data.particleCount; i++ ) {
 				
-				particle = particleFactory.getParticle(ParticleType.SIMPLE);// 0xffCC00, i * (2 * Math.PI / data.particleCount), getRandomSpeed(0.1), getRandomLife(0.4), getRandomFriction(0.01));
-				particle.motion = new FireworkMotion(particle);
+				
+				var gravityAnimator:GravityAnimator = new GravityAnimator();
+				gravityAnimator.gravity = 100;
+				var frictionAnimator:IAnimator = new FrictionAnimator();		
+				var alphaAnimator:IAnimator = new AlpaAnimator();
+				var complexAnimator:IAnimator = new ComplexAnimator(new <IAnimator>[gravityAnimator, frictionAnimator, alphaAnimator]);			
+				
+				particle = particleFactory.getParticle(ParticleType.SIMPLE, complexAnimator);// 0xffCC00, i * (2 * Math.PI / data.particleCount), getRandomSpeed(0.1), getRandomLife(0.4), getRandomFriction(0.01));				
 				
 				direction = i * (2 * Math.PI / data.particleCount);
-				speed = getRandomSpeed(0.1);				
+				speed = getRandomSpeed(0.05);				
 				
 				// fire particles in different directions
 				particle.data.properties[ParticleProperties.SPEED] = new Vector3D(speed * Math.cos(direction), speed * Math.sin(direction));				
 				particle.data.properties[ParticleProperties.DURATION] = getRandomLife(0.4);
-				particle.data.properties[ParticleProperties.FRICTION] = getRandomFriction(0.01);
+				particle.data.properties[ParticleProperties.FRICTION] = getRandomFriction(0.005);
 				particle.data.properties[ParticleProperties.SIZE] = 2;
 				particle.data.properties[ParticleProperties.COLOR] = 0xFFCC00;
 				

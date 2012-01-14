@@ -1,6 +1,6 @@
 package com.abadalyan.fireworks.api.particle 
 {
-	import com.abadalyan.fireworks.api.motion.BaseMotion;
+	import com.abadalyan.fireworks.api.motion.IAnimator;
 	import com.abadalyan.fireworks.api.particle.ParticleData;
 	import com.abadalyan.fireworks.api.particle.ParticleProperties;
 	import flash.events.Event;
@@ -12,7 +12,7 @@ package com.abadalyan.fireworks.api.particle
 	public class VariableGlowParticle extends BaseParticle
 	{
 		
-		public function VariableGlowParticle(motion:BaseMotion = null) 
+		public function VariableGlowParticle(motion:IAnimator = null) 
 		{
 			super(motion);
 			

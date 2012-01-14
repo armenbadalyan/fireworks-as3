@@ -9,7 +9,7 @@ package com.abadalyan.fireworks.api.motion
 	 * ...
 	 * @author abadalyan
 	 */
-	public class BaseMotion 
+	public class Animator implements IAnimator
 	{
 		
 		private var particle:BaseParticle;
@@ -18,16 +18,16 @@ package com.abadalyan.fireworks.api.motion
 		private var now:uint;
 		private var frameDuration:uint = 0;		
 		private var currentDuration:uint = 0;
-		private var frameMultiplier:Number;
+		private var frameMultiplier:Number;		
 		
 		
-		public function BaseMotion(particle:BaseParticle) 
+		public function Animator() 
 		{
-			this.particle = particle;
-			
+						
 		}		
 		
-		final public function animate():void {
+		final public function animate(particle:BaseParticle):void {
+			this.particle = particle;
 			lastTime = getTimer();
 			particle.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
@@ -39,7 +39,9 @@ package com.abadalyan.fireworks.api.motion
 			frameDuration = now - lastTime;
 			
 			if (currentDuration <= particle.data.properties[ParticleProperties.DURATION]) {
-				move(particle, currentDuration, frameDuration / 1000);
+				
+				frameMultiplier = frameDuration / 1000;				
+				animateFrame(particle, currentDuration, frameMultiplier);
 				
 				lastTime = now;
 			}
@@ -51,10 +53,9 @@ package com.abadalyan.fireworks.api.motion
 			}
 		}
 		
-		protected function move(particle:BaseParticle, currentDuration:uint, timeDeltaInSeconds:Number):void {
+		protected function animateFrame(particle:BaseParticle, currentDuration:uint, timeDeltaInSeconds:Number):void {
 			// override in child classes
-		}
-		
+		}		
 	}
 
 }

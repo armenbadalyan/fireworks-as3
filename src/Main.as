@@ -20,13 +20,19 @@
 		}
 		
 		private function onClick(e:MouseEvent):void {
-			particleFactory = new ParticleFactory();
-   			var blast:BaseBlast = FireworksFacade.blastFactory.getBlast(BlastType.SIMPLE, 300, 100);
-			blast.x = e.localX;
-			blast.y = e.localY;
-			addChild(blast);
-			blast.simulate();
 			
+			particleFactory = new ParticleFactory();
+			var blast:BaseBlast;
+			var speedDiff:int = 0;
+			for (var i:int = 0; i < 6; i++) {
+				speedDiff += i * 10; 
+				blast = FireworksFacade.blastFactory.getBlast(BlastType.SIMPLE, 300 - speedDiff, 60 - i*10);
+				blast.x = e.localX;
+				blast.y = e.localY;
+				addChild(blast);
+				
+				blast.simulate();
+			}		
 		}
 	}
 	
