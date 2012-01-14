@@ -8,15 +8,10 @@ package com.abadalyan.fireworks.api.motion
 	 */
 	
 	 
-	public class LinearMotion extends BaseMotion 
+	public class LinearMotionAnimator extends Animator 
 	{
 		
-		public function LinearMotion(particle:BaseParticle) 
-		{
-			super(particle);			
-		}
-		
-		override protected function move(particle:BaseParticle, currentDuration:uint, timeDeltaInSeconds:Number):void {
+		override protected function animateFrame(particle:BaseParticle, currentDuration:uint, timeDeltaInSeconds:Number):void {
 			
 			particle.x += particle.data.properties[ParticleProperties.SPEED].x * timeDeltaInSeconds;
 			particle.y += particle.data.properties[ParticleProperties.SPEED].y * timeDeltaInSeconds;

@@ -7,25 +7,19 @@ package com.abadalyan.fireworks.api.motion
 	 * ...
 	 * @author abadalyan
 	 */
-	public class FireworkMotion extends Animator
-	{		
-		private var speed:Vector3D;
-		private const GRAVITY:Number = 100;
+	public class FrictionAnimator extends Animator
+	{
+		public var speed:Vector3D;		
 		
-			
-		override protected function move(particle:BaseParticle, currentDuration:uint, timeDeltaInSeconds:Number):void {
+		override protected function animateFrame(particle:BaseParticle, currentDuration:uint, timeDeltaInSeconds:Number):void {
 			speed = particle.data.properties[ParticleProperties.SPEED];
 			
-			speed.y += GRAVITY * timeDeltaInSeconds;		
-				
 			speed.x *= Math.pow(1-particle.data.properties[ParticleProperties.FRICTION], timeDeltaInSeconds);
 			speed.y *= Math.pow(1-particle.data.properties[ParticleProperties.FRICTION], timeDeltaInSeconds);
 													
 			particle.x += speed.x*timeDeltaInSeconds;
-			particle.y += speed.y*timeDeltaInSeconds;				
-			
-		}
-		
+			particle.y += speed.y*timeDeltaInSeconds;		
+		}		
 	}
 
 }

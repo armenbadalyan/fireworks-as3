@@ -1,5 +1,6 @@
 ﻿package com.abadalyan.fireworks.api.factory 
 {
+	import com.abadalyan.fireworks.api.motion.IAnimator;
 	import com.abadalyan.fireworks.api.particle.ParticleData;
 	import com.abadalyan.fireworks.api.particle.BaseParticle;
 	import com.abadalyan.fireworks.api.particle.ParticleType;
@@ -19,10 +20,10 @@
 			
 		}		
 		
-		public function getParticle(type:String):BaseParticle 
+		public function getParticle(type:String, animator:IAnimator):BaseParticle 
 		{
 			var particle:BaseParticle;
-			_particleCount++;
+			
 			
 			switch(type) {
 				case ParticleType.SIMPLE:
@@ -31,11 +32,12 @@
 				case ParticleType.VARIABLE_GLOW:
 					particle = new VariableGlowParticle();
 					break;
-				default:
-					_particleCount--; 					
+				default:									
 					throw new IllegalOperationError("Trying to instantiate inexistent particle type: "+type);
 			}
 			
+			particle.animator = animator;
+			_particleCount++;
 			return particle;
 		}
 		

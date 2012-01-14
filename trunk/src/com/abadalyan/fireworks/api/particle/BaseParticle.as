@@ -1,7 +1,7 @@
 package com.abadalyan.fireworks.api.particle 
-{
-	import com.abadalyan.fireworks.api.motion.BaseMotion;
-	import com.abadalyan.fireworks.api.motion.LinearMotion;
+{	
+	import com.abadalyan.fireworks.api.motion.IAnimator;
+	import com.abadalyan.fireworks.api.motion.LinearMotionAnimator;
 	import com.abadalyan.fireworks.api.particle.ParticleData;
 	import com.abadalyan.fireworks.api.ISimulation;
 	import flash.display.Sprite;
@@ -11,25 +11,25 @@ package com.abadalyan.fireworks.api.particle
 	 */
 	public class BaseParticle extends Sprite implements ISimulation 
 	{
-		private var _motion:BaseMotion;		
-		public var data:ParticleData;
+		private var _animator:IAnimator;		
+		public var data:ParticleData;		
 		
-		public function BaseParticle(motion:BaseMotion = null) 
+		public function BaseParticle(animator:IAnimator = null) 
 		{
 			data = new ParticleData();
 			
-			if (!motion) {
-				_motion = new LinearMotion(this);
+			if (!animator) {
+				_animator = new LinearMotionAnimator();				
 			}
 			else {
-				_motion = motion;
+				_animator = animator;
 			}
 			
 		}
 		
 		public function simulate():void {
 			draw();
-			_motion.animate();
+			_animator.animate(this);
 		}
 		
 		protected function draw():void {
@@ -41,9 +41,9 @@ package com.abadalyan.fireworks.api.particle
 		 *  Sets new motion for particle
 		 * 
 		 */		 
-		public function set motion(value:BaseMotion):void 
+		public function set animator(value:IAnimator):void 
 		{
-			_motion = value;
+			_animator = value;
 		}
 		
 	}
