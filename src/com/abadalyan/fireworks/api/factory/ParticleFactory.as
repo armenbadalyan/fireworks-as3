@@ -6,6 +6,8 @@
 	import com.abadalyan.fireworks.api.particle.ParticleType;
 	import com.abadalyan.fireworks.api.particle.SimpleParticle;
 	import com.abadalyan.fireworks.api.particle.VariableGlowParticle;
+	import com.abadalyan.fireworks.api.event.ParticleEvent;
+	import flash.display.DisplayObject;
 	import flash.errors.IllegalOperationError;
 	/**
 	 * ...
@@ -37,6 +39,8 @@
 			}
 			
 			particle.animator = animator;
+			particle.addEventListener(ParticleEvent.PARTICLE_EXPIRED, onExpired);			
+			
 			_particleCount++;
 			return particle;
 		}
@@ -44,6 +48,14 @@
 		public function get particleCount():uint 
 		{
 			return _particleCount;
+		}
+		
+		private function onExpired(e:ParticleEvent):void {
+			_particleCount--;
+			
+			var particle:* = e.target;
+			particle.parent.removeChild(particle);
+			particle = null;
 		}
 		
 	}

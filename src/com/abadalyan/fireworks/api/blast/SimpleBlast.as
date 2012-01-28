@@ -58,11 +58,9 @@ package com.abadalyan.fireworks.api.blast
 				particle.data.properties[ParticleProperties.DURATION] = getRandomLife(0.4);
 				particle.data.properties[ParticleProperties.FRICTION] = getRandomFriction(0.005);
 				particle.data.properties[ParticleProperties.SIZE] = 2;
-				particle.data.properties[ParticleProperties.COLOR] = 0xFFCC00;
-				
+				particle.data.properties[ParticleProperties.COLOR] = 0xFFCC00;				
 								
-				particles.push(particle);
-				
+				particles.push(particle);				
 			}
 			
 		}
@@ -71,7 +69,9 @@ package com.abadalyan.fireworks.api.blast
 			for each(var p:BaseParticle in particles) {
 				addChild(p);
 				p.simulate();
-			}			
+			}
+			
+			particles.splice(0, particles.length);
 		}
 		
 		private function getRandomSpeed(q:Number):Number {
