@@ -4,14 +4,14 @@
   <output>
     <movie outputType="OtherIDE" />
     <movie input="" />
-    <movie path="" />
+    <movie path="bin/Main.swf" />
     <movie fps="30" />
     <movie width="800" />
     <movie height="600" />
     <movie version="10" />
     <movie minorVersion="2" />
     <movie platform="Flash Player" />
-    <movie background="#FFFFFF" />
+    <movie background="#000000" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
@@ -83,8 +83,7 @@
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="False" />
-    <option testMovie="OpenDocument" />
-    <option testMovieCommand="bin/Main.html" />
+    <option testMovie="Default" />
   </options>
   <!-- Plugin storage -->
   <storage />

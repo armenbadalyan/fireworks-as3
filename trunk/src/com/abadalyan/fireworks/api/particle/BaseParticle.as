@@ -1,10 +1,13 @@
-package com.abadalyan.fireworks.api.particle 
+﻿package com.abadalyan.fireworks.api.particle 
 {	
+	import com.abadalyan.fireworks.api.event.ParticleEvent;
 	import com.abadalyan.fireworks.api.motion.IAnimator;
 	import com.abadalyan.fireworks.api.motion.LinearMotionAnimator;
 	import com.abadalyan.fireworks.api.particle.ParticleData;
 	import com.abadalyan.fireworks.api.ISimulation;
 	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.utils.getTimer;
 	/**
 	 * ...
 	 * @author abadalyan
@@ -13,6 +16,10 @@ package com.abadalyan.fireworks.api.particle
 	{
 		private var _animator:IAnimator;		
 		public var data:ParticleData;		
+		
+		private var lastTime:uint;
+		private var now:uint;		
+		private var currentDuration:uint = 0;
 		
 		public function BaseParticle(animator:IAnimator = null) 
 		{
@@ -27,7 +34,9 @@ package com.abadalyan.fireworks.api.particle
 			
 		}
 		
-		public function simulate():void {
+		final public function simulate():void {
+			lastTime = getTimer();
+			addEventListener(Event.ENTER_FRAME, onEnterFrame);
 			draw();
 			_animator.animate(this);
 		}
@@ -44,6 +53,17 @@ package com.abadalyan.fireworks.api.particle
 		public function set animator(value:IAnimator):void 
 		{
 			_animator = value;
+		}
+		
+		private function onEnterFrame(e:Event):void {
+			now = getTimer();
+			currentDuration += now - lastTime;
+			lastTime = now;
+			
+			if (currentDuration > data.properties[ParticleProperties.DURATION]) {
+				removeEventListener(Event.ENTER_FRAME, onEnterFrame);
+				dispatchEvent(new ParticleEvent(ParticleEvent.PARTICLE_EXPIRED));
+			}
 		}
 		
 	}

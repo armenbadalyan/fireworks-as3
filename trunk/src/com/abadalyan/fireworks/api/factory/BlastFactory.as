@@ -29,7 +29,7 @@ package com.abadalyan.fireworks.api.factory
 				default:
 					throw new IllegalOperationError("Trying to instantiate inexistent blast type: "+type);
 			}
-			
+			data = null;
 			return blast;
 			
 		}
