@@ -8,6 +8,7 @@ package com.abadalyan.fireworks.api.blast
 	{
 		
 		public static const SIMPLE:String = '';
+		public static const EMITTER:String = 'emitter';
 		
 		public function BlastType() 
 		{

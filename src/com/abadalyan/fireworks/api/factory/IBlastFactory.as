@@ -1,6 +1,7 @@
 package com.abadalyan.fireworks.api.factory 
 {
 	import com.abadalyan.fireworks.api.blast.BaseBlast;
+	import flash.display.Sprite;
 	
 	/**
 	 * ...
@@ -8,7 +9,7 @@ package com.abadalyan.fireworks.api.factory
 	 */
 	public interface IBlastFactory 
 	{
-		function getBlast(type:String, force:Number, particleCount:uint):BaseBlast;
+		function getBlast(type:String, force:Number, particleCount:uint, space:Sprite):BaseBlast;
 	}
 	
 }

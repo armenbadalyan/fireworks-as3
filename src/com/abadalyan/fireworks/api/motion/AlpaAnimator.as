@@ -17,9 +17,9 @@ package com.abadalyan.fireworks.api.motion
                 particle.alpha = 2*Math.sin(arg);
             }                       
             else {
-                arg = Math.PI/2 * (currentDuration - fadeInDuration) / (fadeOutDuration - fadeInDuration);
+                arg = Math.PI/2 * (currentDuration - fadeInDuration) / (particle.data.properties[ParticleProperties.DURATION] - fadeInDuration);
                 particle.alpha = Math.cos(arg);
-            }			
+			}			
 		}
 		
 	}

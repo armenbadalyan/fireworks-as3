@@ -17,8 +17,8 @@ package com.abadalyan.fireworks.api.motion
 			speed.x *= Math.pow(1-particle.data.properties[ParticleProperties.FRICTION], timeDeltaInSeconds);
 			speed.y *= Math.pow(1-particle.data.properties[ParticleProperties.FRICTION], timeDeltaInSeconds);
 													
-			particle.x += speed.x*timeDeltaInSeconds;
-			particle.y += speed.y*timeDeltaInSeconds;		
+			/*particle.x += speed.x*timeDeltaInSeconds;
+			particle.y += speed.y*timeDeltaInSeconds;*/		
 		}		
 	}
 

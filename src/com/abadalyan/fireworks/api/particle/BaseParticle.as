@@ -20,6 +20,7 @@
 		private var lastTime:uint;
 		private var now:uint;		
 		private var currentDuration:uint = 0;
+		private var frameDuration:Number;
 		
 		public function BaseParticle(animator:IAnimator = null) 
 		{
@@ -41,6 +42,10 @@
 			_animator.animate(this);
 		}
 		
+		public function stop():void {
+			// TODO: implement this
+		}
+		
 		protected function draw():void {
 			
 		}
@@ -58,11 +63,18 @@
 		private function onEnterFrame(e:Event):void {
 			now = getTimer();
 			currentDuration += now - lastTime;
+			frameDuration = (now - lastTime)/1000;
 			lastTime = now;
+			
+			
 			
 			if (currentDuration > data.properties[ParticleProperties.DURATION]) {
 				removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 				dispatchEvent(new ParticleEvent(ParticleEvent.PARTICLE_EXPIRED));
+			}
+			else {				
+				this.x += data.properties[ParticleProperties.SPEED].x * frameDuration;
+				this.y += data.properties[ParticleProperties.SPEED].y * frameDuration;
 			}
 		}
 		

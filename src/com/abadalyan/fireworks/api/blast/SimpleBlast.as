@@ -8,6 +8,8 @@ package com.abadalyan.fireworks.api.blast
 	import com.abadalyan.fireworks.api.motion.FrictionAnimator;
 	import com.abadalyan.fireworks.api.motion.GravityAnimator;
 	import com.abadalyan.fireworks.api.motion.IAnimator;	
+	import com.abadalyan.fireworks.api.motion.LightTraceAnimator;
+	import com.abadalyan.fireworks.api.motion.LinearMotionAnimator;
 	import com.abadalyan.fireworks.api.particle.BaseParticle;
 	import com.abadalyan.fireworks.api.particle.ParticleType;
 	import com.abadalyan.fireworks.api.particle.ParticleProperties;
@@ -19,7 +21,7 @@ package com.abadalyan.fireworks.api.blast
 	public class SimpleBlast extends BaseBlast 
 	{
 		private const BASE_PARTICLE_DURATION:int = 2500;
-		private const BASE_FRICTION:Number = 0.98;
+		private const BASE_FRICTION:Number = 0.8;
 		
 		private var particles:Vector.<BaseParticle>;
 				
@@ -42,11 +44,11 @@ package com.abadalyan.fireworks.api.blast
 			for (var i:int = 0; i < data.particleCount; i++ ) {
 				
 				
-				var gravityAnimator:GravityAnimator = new GravityAnimator();
-				gravityAnimator.gravity = 100;
+				var gravityAnimator:GravityAnimator = new GravityAnimator(100);				
 				var frictionAnimator:IAnimator = new FrictionAnimator();		
 				var alphaAnimator:IAnimator = new AlpaAnimator();
-				var complexAnimator:IAnimator = new ComplexAnimator(new <IAnimator>[gravityAnimator, frictionAnimator, alphaAnimator]);			
+				var lightTraceAnimator:IAnimator = new LightTraceAnimator();				
+				var complexAnimator:IAnimator = new ComplexAnimator(new <IAnimator>[gravityAnimator, frictionAnimator, alphaAnimator, lightTraceAnimator]);			
 				
 				particle = particleFactory.getParticle(ParticleType.SIMPLE, complexAnimator);// 0xffCC00, i * (2 * Math.PI / data.particleCount), getRandomSpeed(0.1), getRandomLife(0.4), getRandomFriction(0.01));				
 				

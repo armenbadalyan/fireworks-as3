@@ -25,6 +25,10 @@ package com.abadalyan.fireworks.api.blast
 			// leave empty and implement in concrete classes
 		}
 		
+		public function stop():void {
+			// leave empty and implement in concrete classes
+		}
+		
 	}
 
 }
