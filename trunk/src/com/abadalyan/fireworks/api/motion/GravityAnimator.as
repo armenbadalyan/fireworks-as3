@@ -13,15 +13,15 @@ package com.abadalyan.fireworks.api.motion
 		public var gravity:Number;
 		private var speed:Vector3D;
 		
+		public function GravityAnimator(gravity:Number) {
+			super();
+			this.gravity = gravity;
+		}
+		
 		override protected function animateFrame(particle:BaseParticle, currentDuration:uint, timeDeltaInSeconds:Number):void {
 			speed = particle.data.properties[ParticleProperties.SPEED];
 			
-			speed.y += gravity * timeDeltaInSeconds;			
-			particle.data.properties[ParticleProperties.SPEED].y = speed.y;		
-			
-			particle.x += speed.x * timeDeltaInSeconds;
-			particle.y += speed.y * timeDeltaInSeconds;
-			
+			speed.y += gravity * timeDeltaInSeconds;						
 		}
 		
 	}
